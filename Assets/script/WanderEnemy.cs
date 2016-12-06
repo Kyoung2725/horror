@@ -19,6 +19,7 @@ public class WanderEnemy : HunterEnemy {
 	void Start () {
 		_damage = 5;
 		_chaseRadius = 15;
+		_attackRange = 4.0f;
 		base.SetStartingReferences ();
 
 
@@ -47,7 +48,7 @@ public class WanderEnemy : HunterEnemy {
 			float distance = Vector3.Distance (steppoint.position, _hTransform.position);
 			_hNavMeshAgent.SetDestination (steppoint.transform.position);
 			hAnimator.SetBool ("isChaseing", true);
-			if (distance <= 3.0f) 
+			if (distance <= 4.0f) 
 			{
 			step+=1;
 			if (step > 4)

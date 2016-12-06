@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	[SerializeField]Image ImgHealth;//ref to hpbar sprite 
 	[SerializeField]AudioSource myAudioSourse;//ref to AudioSource on player
 	[SerializeField]AudioClip PlayerHurt;//ref to Audioclip played then player is hit
+	[SerializeField]AudioClip sneak;//ref to Audioclip played then player is hit
 	public bool isSneaking = false;
 
 
@@ -29,6 +30,10 @@ public class Player : MonoBehaviour {
 	void Update () {
 		ImgHealth.fillAmount=(float)Health/(float)MaxHealth;
 		Hide ();
+		if (Health <= 0) 
+		{
+			SceneManager.LoadScene("Dealth_Scene");
+		}
 	}
 
 	public void Hide ()
@@ -36,6 +41,8 @@ public class Player : MonoBehaviour {
 		if (CrossPlatformInputManager.GetButton ("Fire2")) 
 		{
 			isSneaking = true;
+			myAudioSourse.clip = sneak;
+			myAudioSourse.Play ();
 		} 
 		else
 		{
@@ -47,9 +54,12 @@ public class Player : MonoBehaviour {
 	public void Damage(int dmg)
 	{
 		Health -= dmg;
-		if (Health < 0) 
+		if (Health <= 0) {
+			SceneManager.LoadScene ("Dealth_Scene");
+		} else 
 		{
-			Application.Quit ();
+			myAudioSourse.clip = PlayerHurt;
+			myAudioSourse.Play ();
 		}
 	}
 

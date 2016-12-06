@@ -17,6 +17,7 @@ public class HunterEnemy : MonoBehaviour {
 	protected Transform _prey;
 	protected bool _hunting = false;
 	protected bool _canAttack = false;
+	protected float _attackRange = 10.0f;
 
 	[SerializeField]
 	protected Animator hAnimator;
@@ -60,7 +61,7 @@ public class HunterEnemy : MonoBehaviour {
 		if (_prey!=null)
 		{
 		float distance = Vector3.Distance (_prey.position, _hTransform.position);
-		if (distance > 5.0f) {
+			if (distance > _attackRange) {
 			hAnimator.SetBool ("isChaseing", true);
 		} 
 		else 

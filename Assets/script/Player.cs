@@ -54,6 +54,8 @@ public class Player : MonoBehaviour {
 	public void Damage(int dmg)
 	{
 		Health -= dmg;
+		myAudioSourse.clip = PlayerHurt;
+		myAudioSourse.Play ();
 		if (Health <= 0) {
 			SceneManager.LoadScene ("Dealth_Scene");
 		} else 

@@ -12,6 +12,7 @@ public class HunterEnemy : MonoBehaviour {
 	protected float _chaseRadius;
 	protected float _attackRadius;
 	protected int _state = 0;
+	[SerializeField]
 	protected int _damage;
 	protected float _attackTime;
 	protected Transform _prey;
@@ -34,7 +35,7 @@ public class HunterEnemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{		
-		_damage = 50;
+		_attackTime = 1.5f;
 		_chaseRadius = 9999;
 		SetStartingReferences ();
 	}
@@ -66,10 +67,9 @@ public class HunterEnemy : MonoBehaviour {
 		} 
 		else 
 		{
-			_attackTime = 1.5f;
 			hAnimator.SetBool ("isChaseing", false);
 			if (_canAttack == true) 
-			{
+			{			
 			Attack ();
 			}
 		}
@@ -114,7 +114,7 @@ public class HunterEnemy : MonoBehaviour {
 	protected virtual void Attack ()
 	{
 		_attackTime -= Time.deltaTime;
-		if (_attackTime >= 0) 
+		if (_attackTime <= 0) 
 		{						
 			Player target = _prey.GetComponent<Player> ();
 			hAnimator.SetBool ("isAttacking", true);

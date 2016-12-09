@@ -39,6 +39,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[SerializeField]public float sneakSpeed;
 		[SerializeField]float MaxStamina =100;//players stamina
 		[SerializeField]float Stamina;//players stamina
+		[SerializeField]public float StaminaRecover;
 		[SerializeField]Image ImgStamina;//ref to hpbar sprite
 		bool isRuning = false;
 		bool sneak = false;
@@ -106,6 +107,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+			if (Stamina >= MaxStamina)
+			{
+				Stamina = MaxStamina;
+			}
         }
 
 
@@ -287,11 +293,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				isRuning = true;//set runing to true 
 				Stamina -= 1;//drain stamina
 				ImgStamina.fillAmount = (float)Stamina/(float)MaxStamina;
+
 			}
 			else
 			{
 				isRuning=false;//set runing to false
-				Stamina += 0.1f;//recover stamina
+				Stamina += StaminaRecover;//recover stamina
 			}	
 		}
 
@@ -299,12 +306,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		{
 			if (CrossPlatformInputManager.GetButton("Fire2") && !isRuning) {
 				sneak = true;
-				Stamina += 0.5f;//recover stamina 
+				Stamina += StaminaRecover;//recover stamina 
 				m_CharacterController.height = 1.0f;//shrink the height of the collider to simulate crouching
 				m_WalkSpeed=sneakSpeed;//player slows down when sneaking
-				if (Stamina > MaxStamina) {
-					Stamina = MaxStamina;//lock stamina from overfilling
-				}
+			
+
 			} 
 			else 
 			{

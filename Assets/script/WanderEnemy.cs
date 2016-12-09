@@ -17,7 +17,8 @@ public class WanderEnemy : HunterEnemy {
 
 	// Use this for initialization
 	void Start () {
-		_damage = 5;
+		_damage = 30;
+		_attackTime = 1.5f;
 		_chaseRadius = 15;
 		_attackRange = 4.0f;
 		base.SetStartingReferences ();
